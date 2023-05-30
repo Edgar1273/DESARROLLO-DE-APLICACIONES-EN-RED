@@ -1,0 +1,63 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congreso de Ingeniería Informática</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Centrar textos */
+        .centered {
+          text-align: center;
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1 class="centered">Congreso de Ingeniería Informática</h1>
+    </header>
+
+    <main>
+        <nav>
+            <!-- Mostrar barra de navegación -->
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="sobre-mi.html">Sobre Mí</a></li>
+            </ul>
+        </nav>
+        <section>
+            <h2 class="centered">Registro</h2>
+            <p class="centered">Diligencia tus datos personales aquí para registrarte y tener acceso al evento (ten en cuenta que los cupos son limitados, el aforo dependerá de la disponibilidad de asientos):</p>
+            <p class="centered">Límite de aforo establecido: <span id="aforo">2000</span> personas.</p>
+            <form>
+                <!-- Se crean y definen los campos de texto -->
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+
+                <label for="telefono">Número de teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+
+                <label for="ocupacion">Ocupación:</label>
+                <input type="text" id="ocupacion" name="ocupacion" required>
+
+                <!-- Se crean y definen los campos de selección según la categoría -->
+                <label for="categoria">Categoría de participación:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Docente">Docente</option>
+                    <option value="Profesional">Profesional</option>
+                </select>
+
+                <!-- Se crea y define un campo de botón para enviar el formulario -->
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+        <footer>
+            <p class="centered"
+            >&copy; UNIR - Universidad Internacional de La Rioja 2023. Todos los derechos reservados.</p>
+        </footer>
+    </main>    
+</body>
