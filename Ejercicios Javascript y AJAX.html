@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios Javascript y AJAX</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="palindromo.js"></script>
+  <script src="compararNumeros.js"></script>
+  <script src="mostrarVocales.js"></script>
+  <script src="contarVocales.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Centrar textos */
+    .centered {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="centered">Ejercicios Javascript y AJAX</h1>
+  </header>
+
+  <label>URL:</label>
+  <input type="text" id="urlInput" value="" />
+  <button onclick="mostrarContenidos()">Mostrar Contenidos</button>
+  
+  <h2 class="centered">Estados de la petición:</h2>
+  <div id="estados"></div>
+  
+  <h2 class="centered">Cabeceras HTTP de la respuesta:</h2>
+  <div id="cabeceras"></div>
+  
+  <h2 class="centered">Código de estado:</h2>
+  <div id="codigoEstado"></div>
+  
+  <h2 class="centered">Contenidos del archivo:</h2>
+  <div id="contenidos"></div>
+  
+  <script>
+    function mostrarContenidos() {
+      var url = document.getElementById("urlInput").value;
+      var estadosDiv = document.getElementById("estados");
+      var cabecerasDiv = document.getElementById("cabeceras");
+      var codigoEstadoDiv = document.getElementById("codigoEstado");
+      var contenidosDiv = document.getElementById("contenidos");
+      
+      estadosDiv.innerHTML = "Cargando...";
+      cabecerasDiv.innerHTML = "";
+      codigoEstadoDiv.innerHTML = "";
+      contenidosDiv.innerHTML = "";
+      
+      $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "text",
+        success: function(response, status, xhr) {
+          estadosDiv.innerHTML = "Completada";
+          cabecerasDiv.innerHTML = xhr.getAllResponseHeaders();
+          codigoEstadoDiv.innerHTML = "Código: " + xhr.status + " - " + xhr.statusText;
+          contenidosDiv.innerHTML = response;
+        },
+        error: function(xhr, status, error) {
+          estadosDiv.innerHTML = "Error";
+          cabecerasDiv.innerHTML = "";
+          codigoEstadoDiv.innerHTML = "Código: " + xhr.status + " - " + xhr.statusText;
+          contenidosDiv.innerHTML = "";
+        }
+      });
+    }
+  </script>
+
+  <p>Aquí se utilizarán las funciones y variables definidas en los archivos JavaScript.</p>
+
+  <h2>Ejercicio del palíndromo.</h2>
+  <form id="palindromoForm">
+    <label for="palindromoInput">Ingresa una cadena de dígitos:</label>
+    <input type="text" id="palindromoInput" required>
+    <button type="button" onclick="verificarPalindromo()">Verificar palíndromo</button>
+  </form>
+  <div id="palindromoResult"></div>
+
+
+  <script>
+    // Ejemplo de uso de la función esPalindromo() del archivo palindromo.js
+    function verificarPalindromo() {
+      var cadena = document.getElementById("palindromoInput").value;
+      var resultado = esPalindromo(cadena);
+      var resultDiv = document.getElementById("palindromoResult");
+      resultDiv.innerHTML = resultado ? "Es un palíndromo" : "No es un palíndromo";
+    }
+  </script>
+
+
+  <h2>Ejercicio de comparar números.</h2>
+  <form id="numerosForm">
+    <label for="num1">Primer número:</label>
+    <input type="number" id="num1" required>
+    <label for="num2">Segundo número:</label>
+    <input type="number" id="num2" required>
+    <button type="button" onclick="obtenerMayor()">Comparar</button>
+  </form>
+  <div id="resultado"></div>
+
+  <script>
+    // Ejemplo de uso de la función compararNumeros() del archivo compararNumeros.js
+    function obtenerMayor() {
+      var num1 = parseInt(document.getElementById("num1").value);
+      var num2 = parseInt(document.getElementById("num2").value);
+      var mayor = compararNumeros(num1, num2);
+      var resultDiv = document.getElementById("resultado");
+      resultDiv.innerHTML = "El número mayor es: " + mayor;
+    }
+  </script>
+
+  <h2>Ejercicio de mostrar vocales.</h2>
+  <form id="vocalesFormMostrar">
+    <label for="fraseMostrar">Ingresa una frase:</label>
+    <input type="text" id="fraseMostrar" required>
+    <button type="button" onclick="mostrarVocalesFunc()">Mostrar vocales</button>
+  </form>
+  <div id="vocalesResultMostrar"></div>
+
+
+  <script>
+    // Ejemplo de uso de la función mostrarVocales() del archivo mostrarVocales.js
+    function mostrarVocalesFunc() {
+      var frase = document.getElementById("fraseMostrar").value;
+      // Llamada a la función mostrarVocales() del archivo mostrarVocales.js
+      mostrarVocales(frase);
+    }
+  </script>
+
+
+  <h2>Ejercicio de contar vocales.</h2>
+  <form id="vocalesFormContar">
+    <label for="fraseContar">Ingresa una frase:</label>
+    <input type="text" id="fraseContar" required>
+    <button type="button" onclick="contarVocalesFunc()">Contar vocales</button>
+  </form>
+  <div id="vocalesResultContar"></div>
+
+  <script>
+    // Ejemplo de uso de la función contarVocales() del archivo contarVocales.js
+    function contarVocalesFunc() {
+      // Obtenemos el valor del campo de entrada
+      var frase = document.getElementById("fraseContar").value;
+      
+      // Llamamos a la función contarVocales() del archivo contarVocales.js
+      var resultado = contarVocales(frase);
+      
+      // Mostramos el resultado en el elemento con id "vocalesResultContar"
+      var resultDiv = document.getElementById("vocalesResultContar");
+      resultDiv.innerHTML = "Número de vocales:<br>" +
+        "a: " + resultado["a"] + "<br>" +
+        "e: " + resultado["e"] + "<br>" +
+        "i: " + resultado["i"] + "<br>" +
+        "o: " + resultado["o"] + "<br>" +
+        "u: " + resultado["u"] + "<br>" +
+        "á: " + resultado["á"] + "<br>" +
+        "é: " + resultado["é"] + "<br>" +
+        "í: " + resultado["í"] + "<br>" +
+        "ó: " + resultado["ó"] + "<br>" +
+        "ú: " + resultado["ú"];
+    }
+  </script>
+
+<footer>
+  <p class="centered">&copy; UNIR - Universidad Internacional de La Rioja 2023. Todos los derechos reservados.</p>
+</footer> 
+
+</body>
+</html>
